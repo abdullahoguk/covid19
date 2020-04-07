@@ -61,7 +61,7 @@ let labels = {
 		test: "Test Edilen",
 		vaka: "Vaka",
 		vefat: "Vefat",
-		yogun: "Yoğun Bakım",
+		yogun: "Yoğ.Bak.",
 		entube: "Entube",
 		iyilesen: "İyileşen"
 	},
@@ -89,6 +89,7 @@ async function render(){
 			}
 			else{
 				item.innerHTML=data[key];
+				item.setAttribute("label", labels[parent][key])
 			}
 		})
 	}

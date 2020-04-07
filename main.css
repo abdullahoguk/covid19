@@ -40,7 +40,7 @@ body,
 
 .content {
 	display: grid;
-	grid-template-columns: 20% 80%;
+	grid-template-columns: 25% 75%;
 	grid-template-rows: 20% 80%;
 	grid-template-areas:
 		"logo total"
@@ -53,10 +53,9 @@ body,
 	background-color: var(--dark-grey);
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: center;
-	line-height: 1.5;
-	font-size: 1.5em;
+	font-size: 1em;
   text-transform: uppercase;
   padding: 1em;
   letter-spacing: .5em;
@@ -65,16 +64,18 @@ body,
 
 .logo span {
   font-weight: 800;
+  font-size: 1.25em;
 }
 
 .total {
 	grid-area: total;
 	background-color: var(--light-grey);
-	grid-gap: 1em;
+	grid-gap: .5em;
 	
 	display: grid;
-	grid-template-columns: 15% 20% 20% 20% 20%;
-  padding: 1em 4em 1em 1em;
+	grid-template-columns: 24% 24% 24% 24%;
+    grid-template-rows: 75% 25%;
+  	padding: 1em 1em 1em 1em;
 	align-content: center;
 	justify-items: center;
 }
@@ -87,7 +88,7 @@ body,
 	padding: 1em;
 
 	display: grid;
-	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 20% 20% 20% 20% 20%;
 
 	align-content: center;
 	justify-items: center;
@@ -96,10 +97,11 @@ body,
 .chart {
 	grid-area: chart;
 	background-color: var(--dark-grey);
-	padding: 2em;
+	padding: 1em;
 }
 
-.total .title {
+
+.total .title, .today .title {
 	color: var(--light);
 	text-align: center;
 	font-size: 2em;
@@ -108,6 +110,7 @@ body,
 
 	text-transform: uppercase;
 	align-self: center;
+	grid-row: 1/3;
 }
 
 .dataCard {
@@ -129,14 +132,190 @@ body,
 
 .dataCard:not(.detail) .value {
 	color: var(--light);
-	font-size: 2em;
+	font-size: 1.5em;
 	font-weight: 700;
 	flex-grow: 2;
+	line-height: 1;
 }
 
 .dataCard.detail {
 	display: flex;
+	flex-direction: row;
+	grid-column: 2/5;
+}
+
+.dataCard.detail .label{
+	width: unset;
+	display: none;
+}
+.dataCard.detail .items {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--light);
+	background-color: var(--dark);
+	flex-grow: 2;
+	padding: 0;
+
+}
+
+.dataCard.detail .value {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 600;
+	height: 100%;
+	width: 100%;
+	border-right: .5em solid var(--light-grey);
+	padding-right: .5em;
+}
+.dataCard.detail .value:last-child{
+	border-right: unset;
+}
+
+
+.dataCard.detail .value:before {
+	content: attr(label);
+	font-size: .9em;
+	font-weight: 300;
+	color: var(--light);
+	background-color: var(--dark-grey);
+	height: 100%;
+	padding: .1em .5em;
+	display: flex;
+	align-items: center;
+}
+
+
+.today .title {
+line-height: 1;
+	text-transform: uppercase;
+	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
+	justify-self: baseline;
+	grid-row: unset;
+}
+
+.today .title .date {
+	font-size: 0.75em;
+  font-weight: 600;
+  margin-top:.2em;
+  line-height: 1;
+	color: darkgoldenrod;
+}
+
+.today .dataCard {
+	min-width: 90%;
+	height: 90%;
+}
+
+.today .dataCard .value {
+	color: var(--light);
+	font-size: 2.5em;
+	font-weight: 700;
+}
+
+
+@media screen and (max-height: 550px) {
+	.dataCard{
+		font-size: x-small!important;
+	}
+}
+
+@media screen and (max-width: 968px) {
+	.dataCard:not(.detail) .value{
+		font-size: 1.5em!important;
+	}
+
+	.total .title, .today .title  {
+		font-size: 1.5em;
+	}
+}
+
+
+@media screen and (max-width: 720px) {
+    .content{
+		display: grid;
+		grid-template-columns: 100%;
+	grid-template-rows: 7.5% 30% 20% auto;
+	grid-template-areas:
+		"logo" "today" "total" "chart"
+	}
+
+	.logo{
+		flex-direction: row;
+		justify-content:center;
+	}
+
+.total, .today {
+	grid-gap: .5em;
+	
+	display: grid;
+  	padding: 1em 1em 1em 1em;
+	align-content: center;
+	justify-items: center;
+	border-bottom: 2px solid var(--light);
+}
+
+.today{
+	grid-template-columns:  50% 50%;
+	grid-template-rows: 20% 40% 40%;
+
+
+}
+
+.total{
+	grid-template-columns:  33% 33% 33%;
+	grid-template-rows: 20% 52% 20%;
+
+
+}
+
+.total .title, .today .title  {
+	font-size: 1.5em;
+	grid-row: 1/2;
+	grid-column: 1/-1;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	text-align: left;
+}
+
+.total .dataCard:nth-child(n-3) {
+	grid-row: 2/3;
+}
+
+.total .dataCard:last-child {
+	width: 100%;
+	grid-column: 1/4;
+	grid-row: 3/4;
+}
+
+
+.today .dataCard:nth-child(n-2) {
+	grid-row: 2/3;
+}
+
+.today .dataCard:nth-last-child(-n+2) {
+	grid-row: 3/4;
+}
+
+.chart{
+	padding: 0 1em 0 0 ;
+}
+/*
+.dataCard.detail {
+	display: flex;
+	flex-direction: column;
+	grid-column: unset;
+
+}
+.dataCard.detail .label{
+	width: unset;
+	display: block;
 }
 
 .dataCard.detail .items {
@@ -153,41 +332,46 @@ body,
 	display: flex;
 	justify-content: space-between;
 	align-items: stretch;
+	border: unset;
+	padding: unset;
 }
 
 .dataCard.detail .value:before {
 	content: attr(label) ": ";
 	color: var(--light);
 }
+*/
 
-.today .title {
-	color: var(--light);
-	text-align: center;
-	font-size: 2.5em;
-	line-height: 1;
-  font-weight: 300;
-  letter-spacing: .1em;
-	text-transform: uppercase;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-self: baseline;
 }
 
-.today .title .date {
-	font-size: 0.75em;
-  font-weight: 400;
-  margin-top:.25em;
-	color: rgb(255, 112, 112);
+@media screen and (max-width: 450px) {
+    .logo, .dataCard, .dataCard .label,.dataCard .value {
+		font-size: .8em;
+	}
+
 }
 
-.today .dataCard {
-	min-width: 90%;
-	height: 90%;
+
+
+
+
+/**/
+
+
+
+
+@media screen and (min-width: 721px) and (max-width: 1280px) {
+    
 }
 
-.today .dataCard .value {
-	color: var(--light);
-	font-size: 3em;
-	font-weight: 700;
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    
+}
+
+@media screen and (min-width: 1441px) and (max-width: 1920px) {
+    
+}
+
+@media screen and (min-width: 1921px) {
+    
 }

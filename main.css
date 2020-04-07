@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
+html {
+	box-sizing: border-box;
+}
+/* inherit border-box on all elements in the universe and before and after
+ */
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	margin: 0;
+	font-family: "Poppins", sans-serif;
+}
+/*
+:root {
+	--light: #d6d6d6;
+	--dark: #000000;
+	--light-grey: #333333;
+	--dark-grey: #1a1a1a;
+}
+*/
+:root {
+	--light: hsl(198, 96%, 78%);
+	--dark: hsl(196, 90%, 4%);
+	--light-grey: hsl(198, 96%, 11%);
+	--dark-grey: hsl(199, 100%, 6%);
+}
+
+.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+body,
+.content {
+	width: 100vw;
+	height: 100vh;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: 20% 80%;
+	grid-template-rows: 20% 80%;
+	grid-template-areas:
+		"logo total"
+		"today chart";
+}
+
+.logo {
+	grid-area: logo;
+	color: var(--light);
+	background-color: var(--dark-grey);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	line-height: 1.5;
+	font-size: 1.5em;
+  text-transform: uppercase;
+  padding: 1em;
+  letter-spacing: .5em;
+  font-weight: 300;
+}
+
+.logo span {
+  font-weight: 800;
+}
+
+.total {
+	grid-area: total;
+	background-color: var(--light-grey);
+	grid-gap: 1em;
+	
+	display: grid;
+	grid-template-columns: 15% 20% 20% 20% 20%;
+  padding: 1em 4em 1em 1em;
+	align-content: center;
+	justify-items: center;
+}
+
+
+.today {
+	grid-area: today;
+	background-color: var(--light-grey);
+	height: 100%;
+	padding: 1em;
+
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+	align-content: center;
+	justify-items: center;
+}
+
+.chart {
+	grid-area: chart;
+	background-color: var(--dark-grey);
+	padding: 2em;
+}
+
+.total .title {
+	color: var(--light);
+	text-align: center;
+	font-size: 2em;
+  font-weight: 300;
+  letter-spacing: .1em;
+
+	text-transform: uppercase;
+	align-self: center;
+}
+
+.dataCard {
+	width: 100%;
+	background-color: var(--dark);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.dataCard .label {
+  border-left: 2px solid var(--light);
+  letter-spacing: .1em;
+	width: 100%;
+	padding: 0.1em 0.5em;
+	color: var(--light);
+	background-color: var(--dark-grey);
+}
+
+.dataCard:not(.detail) .value {
+	color: var(--light);
+	font-size: 2em;
+	font-weight: 700;
+	flex-grow: 2;
+}
+
+.dataCard.detail {
+	display: flex;
+	flex-direction: column;
+}
+
+.dataCard.detail .items {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: stretch;
+	padding: 0.25em 0.5em;
+	color: var(--light);
+	background-color: var(--dark);
+}
+
+.dataCard.detail .value {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+
+.dataCard.detail .value:before {
+	content: attr(label) ": ";
+	color: var(--light);
+}
+
+.today .title {
+	color: var(--light);
+	text-align: center;
+	font-size: 2.5em;
+	line-height: 1;
+  font-weight: 300;
+  letter-spacing: .1em;
+	text-transform: uppercase;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-self: baseline;
+}
+
+.today .title .date {
+	font-size: 0.75em;
+  font-weight: 400;
+  margin-top:.25em;
+	color: rgb(255, 112, 112);
+}
+
+.today .dataCard {
+	min-width: 90%;
+	height: 90%;
+}
+
+.today .dataCard .value {
+	color: var(--light);
+	font-size: 3em;
+	font-weight: 700;
+}

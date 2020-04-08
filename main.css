@@ -4,8 +4,6 @@ html {
 	box-sizing: border-box;
 }
 
-/* inherit border-box on all elements in the universe and before and after
- */
 *,
 *:before,
 *:after {
@@ -61,19 +59,20 @@ body,
 	font-size: 1em;
 	text-transform: uppercase;
 	padding: 1em;
-	letter-spacing: .5em;
+	letter-spacing: 0.5em;
 	font-weight: 300;
 }
 
 .logo span {
 	font-weight: 800;
-	font-size: 1.25em;
+	font-size: 1.5em;
+	line-height: 2;
 }
 
 .total {
 	grid-area: total;
 	background-color: var(--light-grey);
-	grid-gap: .5em;
+	grid-gap: 0.5em;
 
 	display: grid;
 	grid-template-columns: 24% 24% 24% 24%;
@@ -102,14 +101,13 @@ body,
 	padding: 1em;
 }
 
-
 .total .title,
 .today .title {
 	color: var(--light);
 	text-align: center;
 	font-size: 2em;
 	font-weight: 300;
-	letter-spacing: .1em;
+	letter-spacing: 0.1em;
 
 	text-transform: uppercase;
 	align-self: center;
@@ -126,7 +124,7 @@ body,
 
 .dataCard .label {
 	border-left: 2px solid var(--light);
-	letter-spacing: .1em;
+	letter-spacing: 0.1em;
 	width: 100%;
 	padding: 0.1em 0.5em;
 	color: var(--light);
@@ -170,8 +168,8 @@ body,
 	font-weight: 600;
 	height: 100%;
 	width: 100%;
-	border-right: .5em solid var(--light-grey);
-	padding-right: .5em;
+	border-right: 0.5em solid var(--light-grey);
+	padding-right: 0.5em;
 }
 
 .dataCard.detail .value:last-child {
@@ -180,12 +178,12 @@ body,
 
 .dataCard.detail .value:before {
 	content: attr(label);
-	font-size: .9em;
+	font-size: 0.9em;
 	font-weight: 300;
 	color: var(--light);
 	background-color: var(--dark-grey);
 	height: 100%;
-	padding: .1em .5em;
+	padding: 0.1em 0.5em;
 	display: flex;
 	align-items: center;
 }
@@ -203,7 +201,7 @@ body,
 .today .title .date {
 	font-size: 0.75em;
 	font-weight: 600;
-	margin-top: .2em;
+	margin-top: 0.2em;
 	line-height: 1;
 	color: darkgoldenrod;
 }
@@ -219,9 +217,44 @@ body,
 	font-weight: 700;
 }
 
+.loading .dataCard .value,
+.loading .dataCard .label {
+	width: 100%;
+	background-color: var(--dark-grey);
+	color: var(--light-grey);
+	position: relative;
+	overflow: hidden;
+}
+
+.loading .dataCard .value::before,
+.loading .dataCard .label::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: linear-gradient(
+		to right,
+		var(--dark-grey) 0%,
+		var(--light-grey) 50%,
+		var(--dark-grey) 100%
+	);
+	animation: placeholder 0.5s ease-in both infinite;
+}
+
+@keyframes placeholder {
+	0% {
+		left: -100%;
+	}
+	100% {
+		left: 100%;
+	}
+}
+
 @media screen and (max-height: 550px) {
-	.dataCard {
-		font-size: x-small !important;
+	.dataCard .value {
+		font-size: 1.25em !important;
 	}
 }
 
@@ -237,12 +270,14 @@ body,
 }
 
 @media screen and (max-width: 720px) {
+	body {
+		height: auto;
+	}
 	.content {
 		display: grid;
 		grid-template-columns: 100%;
-		grid-template-rows: 7.5% 30% 20% auto;
-		grid-template-areas:
-			"logo""today""total""chart"
+		grid-template-rows: 1fr 4fr 2fr auto;
+		grid-template-areas: "logo" "today" "total" "chart";
 	}
 
 	.logo {
@@ -252,7 +287,7 @@ body,
 
 	.total,
 	.today {
-		grid-gap: .5em;
+		grid-gap: 0.5em;
 
 		display: grid;
 		padding: 1em 1em 1em 1em;
@@ -293,68 +328,42 @@ body,
 		grid-row: 3/4;
 	}
 
-
 	.today .dataCard:nth-child(n-2) {
 		grid-row: 2/3;
 	}
 
-	.today .dataCard:nth-last-child(-n+2) {
+	.today .dataCard:nth-last-child(-n + 2) {
 		grid-row: 3/4;
 	}
 
 	.chart {
 		padding: 0 1em 0 0;
 	}
-
-	/*
-.dataCard.detail {
-	display: flex;
-	flex-direction: column;
-	grid-column: unset;
-
-}
-.dataCard.detail .label{
-	width: unset;
-	display: block;
-}
-
-.dataCard.detail .items {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: stretch;
-	padding: 0.25em 0.5em;
-	color: var(--light);
-	background-color: var(--dark);
-}
-
-.dataCard.detail .value {
-	display: flex;
-	justify-content: space-between;
-	align-items: stretch;
-	border: unset;
-	padding: unset;
-}
-
-.dataCard.detail .value:before {
-	content: attr(label) ": ";
-	color: var(--light);
-}
-*/
-
 }
 
 @media screen and (max-width: 450px) {
-
 	.logo,
 	.dataCard,
 	.dataCard .label,
 	.dataCard .value {
-		font-size: .8em;
+		font-size: 0.8em;
 	}
 }
 
+@media screen and (max-width: 500px) and (min-height: 540px) {
+	.today .dataCard {
+		font-size: 1.25em;
+	}
 
-/**/
+	.total .dataCard {
+		font-size: 1em;
+	}
+}
 
-@media screen and (min-width: 1441px)  {}
+@media screen and (min-width: 1440px) and (min-height: 720px) {
+	.logo,
+	.dataCard,
+	.title {
+		font-size: 1.5em;
+	}
+}

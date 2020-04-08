@@ -12,6 +12,7 @@ function handleCorsresult(result) {
 	covidData = scrape(result);
 	//render
 	render();
+	document.querySelector(".content.loading").classList.remove("loading");
 }
 
 function scrape(html) {

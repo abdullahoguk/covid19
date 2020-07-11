@@ -26,12 +26,12 @@ function scrape(html) {
 	);
 	data.date = { gun: rawDate[0], ay: rawDate[1], yil: rawDate[2] };
 
-    var rawTotalValues = [...doc.querySelectorAll("ul")[0].querySelectorAll("li span:nth-child(2)")]
+    var rawTotalValues = [...doc.querySelectorAll("ul.list-group")[0].querySelectorAll("li span:nth-child(2)")]
         .map(item => item.innerHTML.trim());
 	setValues("total", rawTotalValues);
 
 	var rawNewValues = [
-		...doc.querySelectorAll("ul")[1].querySelectorAll("li span:nth-child(2)")
+		...doc.querySelectorAll("ul.list-group")[1].querySelectorAll("li span:nth-child(2)")
 	].map(item => item.innerHTML.trim());
 	setValues("today", rawNewValues);
 

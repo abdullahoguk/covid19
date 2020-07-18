@@ -1,4 +1,4 @@
-var url = 	"https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr";
+var url = 	"https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr/?lang=tr-TR";
 var covidData = {};
 var canvas = document.querySelector("#canvas");
 
@@ -41,7 +41,7 @@ function scrape(html) {
 		});
     }
 
-    let rawScript = doc.querySelectorAll("script")[2].innerHTML;
+    let rawScript = doc.querySelectorAll("script")[5].innerHTML;
     
     var a = eval(rawScript)();
     

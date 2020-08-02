@@ -62,8 +62,8 @@ let labels = {
 		test: "Test Edilen",
 		vaka: "Vaka",
 		vefat: "Vefat",
-		yogun: "Yoğ.Bak.",
-		entube: "Entube",
+		zaturre: "Zatürre Oranı",
+		agir: "Ağır Hasta",
 		iyilesen: "İyileşen"
 	},
 	today: {

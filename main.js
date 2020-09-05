@@ -1,97 +1,55 @@
-var url = 	"https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr/?lang=tr-TR";
-var covidData = {};
+var url = "https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr/covid19api?getir=liste";
+var today = {};
+var allData;
 var canvas = document.querySelector("#canvas");
 
 fetch(url)
 	.then(res => {
-		return res.text();
+		return res.json();
 	})
-	.then(handleCorsresult);
+	.then(handleData);
 
-function handleCorsresult(result) {
-	covidData = scrape(result);
-	//render
+function handleData(result) {
+	allData = result;
+  today = allData[0];
 	render();
 	document.querySelector(".content.loading").classList.remove("loading");
 }
 
-function scrape(html) {
-	var parser = new DOMParser();
-	var doc = parser.parseFromString(html, "text/html");
-
-	let data = { total: {}, today: {}, date: {}, history: {} };
-
-	let rawDate = [...doc.querySelectorAll(".takvim p")].map(item =>
-		item.innerHTML.trim()
-	);
-	data.date = { gun: rawDate[0], ay: rawDate[1], yil: rawDate[2] };
-
-    var rawTotalValues = [...doc.querySelectorAll("ul.list-group")[0].querySelectorAll("li span:nth-child(2)")]
-        .map(item => item.innerHTML.trim());
-	setValues("total", rawTotalValues);
-
-	var rawNewValues = [
-		...doc.querySelectorAll("ul.list-group")[1].querySelectorAll("li span:nth-child(2)")
-	].map(item => item.innerHTML.trim());
-	setValues("today", rawNewValues);
-
-	function setValues(parent, arr) {
-		arr.forEach(function(item, index) {
-			data[parent][Object.keys(labels[parent])[index]] = item;
-		});
-    }
-
-    let rawScript = doc.querySelectorAll("script")[5].innerHTML;
-    
-    var a = eval(rawScript)();
-    
-    /*
-	const regex = /(?<=config:[\s\S])[\s\S]*(?=};)/gim;
-	let rawHistory = [...doc.querySelectorAll("script")]
-		.slice(-1)[0]
-		.innerHTML.trim();
-	rawHistory = regex.exec(rawHistory);
-	//eval(`rawHistory = \{${rawHistory}`)
-	console.log(rawHistory);
-*/
-	return data;
-}
 
 let labels = {
-	total: {
-		test: "Test Edilen",
-		vaka: "Vaka",
-		vefat: "Vefat",
-		zaturre: "Zatürre Oranı",
-		agir: "Ağır Hasta",
-		iyilesen: "İyileşen"
-	},
-	today: {
-		test: "Test Edilen",
-		vaka: "Vaka",
-		vefat: "Vefat",
-		iyilesen: "İyileşen"
-	}
+		toplam_test: "Test Edilen",
+		toplam_vaka: "Vaka",
+		toplam_vefat: "Vefat",
+		hastalarda_zaturre_oran: "Zaturre Oranı",
+		agir_hasta_sayisi: "Ağır Hasta",
+		toplam_iyilesen: "İyileşen",
+		gunluk_test: "Test Edilen",
+		gunluk_vaka: "Vaka",
+		gunluk_vefat: "Vefat",
+		gunluk_iyilesen: "İyileşen"
 };
 
 async function render(){
-	document.querySelector(".date").innerHTML = await Object.values(covidData.date).join(" ");
-	await renderDataCards("total");
-	await renderDataCards("today");
+	document.querySelector(".date").innerHTML = await today.tarih
+	await renderDataCards(today);
+  //render chart
+  //renderChart(allData)
+}
 
-	function renderDataCards(parent){
-		var elements = document.querySelectorAll(`.${parent} *[data-key]`)
-		var data = covidData[parent];
+function renderDataCards(data){
+    
+		var elements = document.querySelectorAll(`*[data-key]`)
+		
 		elements.forEach(function(item){
 			var key = item.dataset.key;
 			if(item.classList.contains("dataCard")){
-				item.querySelector("span.label").innerHTML = labels[parent][key];
+				item.querySelector("span.label").innerHTML = labels[key];
 				item.querySelector("span.value").innerHTML = data[key];
 			}
 			else{
 				item.innerHTML=data[key];
-				item.setAttribute("label", labels[parent][key])
+				item.setAttribute("label", labels[key])
 			}
 		})
 	}
-}

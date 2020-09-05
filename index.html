@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://covid19.saglik.gov.tr/lib/Chart/Chart.min.js"></script>
-    <script src="https://covid19.saglik.gov.tr/lib/Chart/Chart.min.js"></script>
-    <link rel="stylesheet" href="main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" href="main.css" />
     <title>Türkiyede Covid-19</title>
-</head>
-<body>
+  </head>
+
+  <body>
     <div class="content loading">
-        <div class="logo">TÜRKİYE'de <span>Covid-19</span> </div>
-        <div class="total">
-            <div class="title">TOPLAM</div>
-            <div class="dataCard center" data-key="test"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard center" data-key="vaka"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard center" data-key="vefat"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard detail">
-                <span class="label">Vaka Detayları</span>
-                <div class="items">
-                    <span class="value" data-key="zaturre" label="Zatürre Oranı">-</span>
-                    <span class="value" data-key="agir" label="Ağır Hasta">-</span>
-                    <span class="value"  data-key="iyilesen" label="İyileşen">-</span>
-            
-                </div>
-                    </div>
+      <div class="logo">TÜRKİYE'de <span>Covid-19</span></div>
+      <div class="total">
+        <div class="title">TOPLAM</div>
+        <div class="dataCard center" data-key="toplam_test">
+          <span class="label">-</span><span class="value center">-</span>
         </div>
+        <div class="dataCard center" data-key="toplam_vaka">
+          <span class="label">-</span><span class="value center">-</span>
+        </div>
+        <div class="dataCard center" data-key="toplam_vefat">
+          <span class="label">-</span><span class="value center">-</span>
+        </div>
+        <div class="dataCard detail">
+          <span class="label">Vaka Detayları</span>
+          <div class="items">
+            <span
+              class="value"
+              data-key="hastalarda_zaturre_oran"
+              label="Zaturre Oranı"
+              >-</span
+            >
+            <span class="value" data-key="agir_hasta_sayisi" label="Ağır Hasta"
+              >-</span
+            >
+            <span class="value" data-key="toplam_iyilesen" label="İyileşen"
+              >-</span
+            >
+          </div>
+        </div>
+      </div>
 
-        <div class="today">
-            <div class="title "><span>BUGÜN</span> <span class="date"></span></div>
-            <div class="dataCard center" data-key="test"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard center" data-key="vaka"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard center" data-key="vefat"><span class="label">-</span><span class="value center">-</span></div>
-            <div class="dataCard center" data-key="iyilesen"><span class="label">-</span><span class="value center">-</span></div>
+      <div class="today">
+        <div class="title"><span>BUGÜN</span> <span class="date"></span></div>
+        <div class="dataCard center" data-key="gunluk_test">
+          <span class="label">-</span><span class="value center">-</span>
         </div>
+        <div class="dataCard center" data-key="gunluk_vaka">
+          <span class="label">-</span><span class="value center">-</span>
+        </div>
+        <div class="dataCard center" data-key="gunluk_vefat">
+          <span class="label">-</span><span class="value center">-</span>
+        </div>
+        <div class="dataCard center" data-key="gunluk_iyilesen">
+          <span class="label">-</span><span class="value center">-</span>
+        </div>
+      </div>
 
-        <div class="chart">
-            <canvas id="canvas"></canvas>
-        </div>
-       
-    </div> 
-    
-</body>
-<script src="./main.js"></script>
+      <div class="chart">
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+  </body>
+  <script src="./main.js"></script>
 </html>

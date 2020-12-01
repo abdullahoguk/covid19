@@ -1,16 +1,22 @@
-var url = "https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr/covid19api?getir=liste";
+var url = "https://cors.abdullahoguk.workers.dev/?https://covid19.saglik.gov.tr/TR-66935/genel-koronavirus-tablosu.html";
 var today = {};
 var allData;
 var canvas = document.querySelector("#canvas");
 
 fetch(url)
 	.then(res => {
-		return res.json();
+		return res.text();
 	})
 	.then(handleData);
 
 function handleData(result) {
-	allData = result;
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(result, "text/html");
+    var script = [...doc.querySelectorAll("script")].reverse()[0];
+    eval(script.innerText);
+
+
+	allData = geneldurumjson;
   today = allData[0];
 	render();
 	document.querySelector(".content.loading").classList.remove("loading");
@@ -19,7 +25,7 @@ function handleData(result) {
 
 let labels = {
 		toplam_test: "Test Edilen",
-		toplam_vaka: "Vaka",
+		toplam_hasta: "Hasta",
 		toplam_vefat: "Vefat",
 		hastalarda_zaturre_oran: "Zaturre Oranı",
 		agir_hasta_sayisi: "Ağır Hasta",
